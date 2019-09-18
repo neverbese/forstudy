@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta type="CTF-8">
+    <title>turn</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/turn.js"></script>
+    <style>
+        #magazine {
+            width: 800px;
+            height: 400px;
+
+        }
+
+        #magazine .turn-page {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="magazine">
+        <div><span class="text">Page 1</span></div>
+        <div><span class="text">Page 2</span></div>
+        <div><span class="text">Page 3</span></div>
+        <div><span class="text">Page 4</span></div>
+        <div><span class="text">Page 5</span></div>
+        <div><span class="text">Page 6</span></div>
+        <div><span class="text">Page 7</span></div>
+        <div><span class="text">Page 8</span></div>
+        <div><span class="text">Page 9</span></div>
+        <div><span class="text">Page 10</span></div>
+    </div>
+
+    <script>
+        $('#magazine').turn({ gradients: true, acceleration: true, autoCenter: true });
+    </script>
+</body>
+
+</html>
