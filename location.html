@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>JavaScript本格入門</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        function jump(f) {
+            var address = f.value;
+            // window.location.href = address;
+            window.open(address);
+        }
+    </script>
+    <form name="fm" onchange="jump(document.fm.studysite)">
+        学習サイト：
+        <br />
+        <select name="studysite">
+            <option value="今日のサイト">今日のサイト</option>
+            <option value="https://schoo.jp/biz/user">schoo</option>
+            <option
+                value="https://community.servicenow.com/community?id=community_article&sys_id=a2dc2a65dbd0dbc01dcaf3231f96197e">
+                serviceNow</option>
+            <option value="http://ctf.cpaw.site/index.php">Cpaw</option>
+            <option value="https://ping-t.com/">ping-t</option>
+            <option value="http://ksnctf.sweetduet.info/">ksnctf</option>
+        </select>
+    </form>
+</body>
+
+</html>

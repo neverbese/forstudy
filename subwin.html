@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>subwin study</title>
+</head>
+
+<body></body>
+
+<script type="text/javascript">
+
+    window.onload = function () {
+
+        var log = document.getElementById('logo');
+        var kids = log.attributes;
+        var results = [];
+        // alert(node);
+        for (var i = 0; i < kids.length; i++) {
+            var attr = kids.item(i);
+            if (attr.nodeValue) {
+                results.push(attr.nodeValue + ':' + attr.nodeName);
+            }
+        }
+        window.alert(results.join('\r\n'));
+    }
+
+</script>
+<img id="logo" src="C:/Users/Developer01/Downloads/1908_downloads/aaa.jpg" width="230" lang="en" alt="aaaa" sizes="dddd"
+    slot="ddd" />
+</body>
+
+</html>

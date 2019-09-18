@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta type="UTF-8">
+    <title>replace</title>
+    <style>
+        .pics {
+            padding: 1ex;
+            margin: 1ex;
+            float: left;
+            border: solid;
+        }
+    </style>
+</head>
+
+<body>
+    <img id="mypic" src="./pic/goo.gif" height="150px" width="150px" alt="goo">
+    <script>
+
+        var pics_src = new Array("./pic/tyoki.gif", "./pic/pa.gif", "./pic/goo.gif");
+        var num = -1;
+        timerShow();
+        function timerShow() {
+            if (num == 2) {
+                num = 0;
+            }
+            else {
+                num++;
+            }
+            document.getElementById("mypic").src = pics_src[num];
+            setTimeout("timerShow()", 400);
+        }
+
+
+        function changeStyle(elem, color) {
+            elem.style.backgroundColor = color;
+        }
+    </script>
+    <ul>
+        <li>
+            <a href="javaScript:void(0)" onclick="show(this)">schoo</a>
+        </li>
+        <li>
+            <a href="javaScript:void(0)" onclick="show(this)">chatter</a>
+        </li>
+    </ul>
+    <input type="button" value="削除" id="del" disabled="disabled" onclick="del()" />
+
+    <div onmouseover="changeStyle(this,'pink')" onmouseout="changeStyle(this,'white')">
+        mouse on change the color</div>
+
+    <div class="pics" onmouseover="changeStyle(this,'pink')" onmouseout="changeStyle(this,'white')">
+        <img src="./pic/goo.gif" height="150px" width="150px" alt="goo">
+    </div>
+
+    <div class="pics" onmouseover="changeStyle(this,'pink')" onmouseout="changeStyle(this,'white')">
+        <img src="./pic/tyoki.gif" height="150px" width="150px" alt="tyoki">
+    </div>
+
+    <div class="pics" onmouseover="changeStyle(this,'pink')" onmouseout="changeStyle(this,'white')">
+        <img src="./pic/pa.gif" height="150px" width="150px" alt="pa">
+    </div>
+
+
+
+</body>
+
+</html>

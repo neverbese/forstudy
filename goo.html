@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>JavaScript</title>
+    <link rel="stylesheet" type="text/css" href="goo.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <form name="main" method="POST" action="" onsubmit="return fight()">
+            <div>
+                AI:
+                <input type="text" name="ai" size="20" placeholder="" />
+            </div>
+            <div>
+                PP:
+                <label><input type="radio" name="send" value="guu" />guu</label>
+                <label><input type="radio" name="send" value="tyoki" />tyoki</label>
+                <label><input type="radio" name="send" value="pa" />pa</label>
+                <input type="submit" name="send2" value="勝負" />
+                <input type="button" name="send3" value="リセット" onclick="reset()" />
+            </div>
+            <div>
+                結果：<input type=" text" name="result" placeholder="今回の勝負結果">
+            </div>
+            <div> 勝負歴：
+                <input type="button" value="勝負歴" onclick="winOpen()" />
+                <input type="hidden" name="resultlist" cols="20" />
+            </div>
+            <div> 合計:<input type="text" name="sum" />回
+            </div>
+            <div> 結果内訳：</div>
+            <div>
+                win:
+                <input type="text" name="win" />
+                lose:<input type="text" name="lose" />
+                equal:<input type="text" name="equal" />
+            </div>
+            <div>
+                勝率：
+                <input type="text" name="winPct" />
+            </div>
+        </form>
+    </div>
+    <script>
+        var times = 1;
+        var winrate = [];
+        var sumWin = 0;
+        var sumLose = 0;
+        var sumEqual = 0;
+
+        function fight() {
+            var p = document.main.send;
+            document.main.ai.value = p[Math.floor(Math.random() * p.length)].value;
+            // document.main.ai.value = p[p.length - 1].value;
+            for (var i = 0; i < p.length; i++) {
+                if (p[i].checked) {
+                    if (document.main.ai.value == p[i].value) {
+                        document.main.send2.value = "再勝負";
+                        document.main.result.value = "あいこでしょう";
+                        sumEqual += 1;
+                    } else if ((i == 0 && document.main.ai.value == "tyoki") || (i == 1 && document.main.ai.value == "pa")
+                        || (i == 2 && document.main.ai.value == "guu")) {
+                        document.main.result.value = "勝ち";
+                        document.main.send2.value = "勝負";
+                        sumWin += 1;
+                    } else {
+                        document.main.result.value = "負け";
+                        document.main.send2.value = "勝負";
+                        sumLose += 1;
+                    }
+                }
+
+            }
+
+            //選択し忘れた時、アラート出ます
+            if (!p[0].checked && !p[1].checked && !p[2].checked) {
+                window.alert("ビビったのか、勝負しなさい");
+                return false;
+            }
+            show();
+            return false;
+        }
+
+        function show() {
+            winrate.push(times + ":" + document.main.result.value + "\r\n");
+            times += 1;
+            document.main.resultlist.value = winrate.toString().replace(/,/g, '');
+            document.main.win.value = sumWin;
+            document.main.lose.value = sumLose;
+            document.main.equal.value = sumEqual;
+            document.main.sum.value = times - 1;
+            document.main.winPct.value = Math.floor(sumWin / (times - 1) * 100) + "%";
+        }
+
+
+
+        function winOpen() {
+            var subwin = window.open('', 'chold', 'width=300,height=300');
+            for (var i = 0; i < times; i++) {
+                subwin.document.open('text/html');
+                subwin.document.writeln('勝負履歴:');
+                subwin.document.writeln('<input type="button" value="閉じる"');
+                subwin.document.writeln('onclick="self.close();"/><br/>');
+                subwin.document.writeln('<textarea name="resultlist" cols="20" rows="20" placeholder="対戦履歴">');
+                subwin.document.writeln(subwin.opener.document.main.resultlist.value);
+                subwin.document.writeln('</textarea>')
+                subwin.document.close();
+            }
+
+            function reset() {
+                window.reload();
+                return false;
+            }
+
+        }
+
+
+    </script>
+</body>
+
+</html>

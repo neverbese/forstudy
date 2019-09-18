@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta type="UTF-8" />
+    <title>コンテンツ編集</title>
+</head>
+
+<body>
+
+    <script type="text/javascript">
+        function add(f) {
+
+            var anchor = document.createElement('a');
+            anchor.href = f.url.value;
+            var name = document.createTextNode(f.name.value);
+            var comment = document.createComment("サイト名");
+            anchor.appendChild(name);
+            var br = document.createElement('br');
+            var list = document.getElementById('list');
+            list.appendChild(anchor);
+            list.appendChild(comment);
+            list.appendChild(br);
+        }
+    </script>
+    <form>
+        <label>サイト名：<br />
+            <input type="text" name="name" size="30" />
+        </label><br />
+        <label>ＵＲＬ：<br />
+            <input type="text" name="url" size="50" />
+        </label><br />
+        <input type="button" value="追加" onclick="add(this.form)" />
+    </form>
+
+    <div id="list"></div>
+</body>
+
+</html>

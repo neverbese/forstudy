@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>スロットアプリ</title>
+</head>
+<style>
+    .slot {
+        float: left;
+        width: 150px;
+        text-align: center;
+        font-size: 40px;
+    }
+
+    .start {
+        text-align: left;
+    }
+</style>
+
+<body>
+    <h1>間違えたら即終了！ 無限スロット！</h1>
+    <p>現在の得点：<span id="score">0</span></p>
+    <div class="slot">
+        <div id="slot0">0</div>
+        <input type="button" value="STOP" id="stop0">
+    </div>
+    <div class="slot">
+        <div id="slot1">0</div>
+        <input type="button" value="STOP" id="stop1">
+    </div>
+    <!-- <div class="start">
+        <br>
+        <input type="button" value="GAME START" id="start">
+    </div> -->
+
+    <script>
+        //即時関数
+        (function () {
+
+
+            //変数定義
+            var timers = [];
+            var results = [];
+            var stopCount = 0; //slot stop時の値
+            var score = 0;
+            var interval = 400;
+            //スロット開始
+            startSlot();
+
+            //イベント登録
+            document.getElementById("stop0").onclick = function () {
+                stopSlot(0);
+            }
+            document.getElementById("stop1").onclick = function () {
+                stopSlot(1);
+            }
+            //開始関数
+            function startSlot() {
+                //初期化
+                stopCount = 0;
+                timers = [];
+                results = [];
+                //回転開始
+                runSlot(0);
+                runSlot(1);
+            }
+
+            function runSlot(num) {
+                var slotValue = document.getElementById("slot" + num);
+                if (slotValue.textContent < 9) {
+                    slotValue.textContent++;
+                } else {
+                    slotValue.textContent = 0;
+                }
+                // console.log(slotValue);
+                timers[num] = setTimeout(function () {
+                    runSlot(num);
+                }, interval);
+            }
+
+            function stopSlot(num) {
+                //timer止める
+                clearTimeout(timers[num]);
+                results[num] = document.getElementById("slot" + num).textContent;
+                stopCount++;
+                if (stopCount == 2) {
+                    checkResult();
+                }
+            }
+            //結果取得
+            function checkResult() {
+                // 
+                if (results[0] == results[1]) {
+                    alert("Excellent!");
+                    //得点
+                    score += 100;
+                    interval *= 0.8;
+                    updateScore();
+                    startSlot();
+                } else {
+                    gamerOver();
+                }
+            }
+
+            function gamerOver() {
+                alert("GAME OVER!");
+                //Todo twitterボタン表示処理
+                getTwitterBtn();
+            }
+
+            function updateScore() {
+                var target = document.getElementById("score");
+                target.textContent = score;
+            }
+
+            function getTwitterBtn() {
+
+                !function (d, s, id) {
+                    var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                    if (!d.getElementById(id)) {
+                        js = d.createElement(s); js.id = id; js.src = p + '://platform.twitter.com/widgets.js'; fjs.parentNode.insertBefore(js, fjs);
+                    }
+                }(document, 'script', 'twitter-wjs');
+                var tweetbtn = document.createElement("p");
+                tweetbtn.innerHTML = '結果をTweetしてね!<br><a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="貴方の得点は『' + score + '』でした。【オンライン動画学習サイト schoo-WEB-campus】『JavaScript実践 〜スロットアプリの制作』" data-url="http://schoo.jp" data-hashtags="schoo.slot" data-show-count="false">Tweet</a>';
+
+                var h1 = document.getElementsByTagName('h1')[0];
+                document.body.insertBefore(tweetbtn, h1);
+
+            }
+        })();
+    </script>
+</body>
+
+</html>
